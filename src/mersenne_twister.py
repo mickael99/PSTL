@@ -28,13 +28,28 @@ lower_mask = (1 << r) - 1
 upper_mask = (~lower_mask) % mod
 
 
-def seed_mt(seed):
-    global index
+X0 = 9753102468
 
+def next_int():
+    ### générateur rand48
+    ### renvoie un entier 32 bits, en partant de X0
+
+    global X0
+
+    a = 25214903917
+    m = 2**48
+    c= 11
+
+    X0 = ( a * X0 + c ) % m
+    return X0 << 16
+
+
+def seed_mt():
+    global index
     index = n
-    MT[0] = seed
-    for i in range(1, n):
-        MT[i] = (f * (MT[i - 1] ^ (MT[i - 1] >> (w - 2)) + i)) % mod
+    for i in range(n):
+        MT[i] = next_int()
+    
 
 
 
@@ -48,24 +63,29 @@ def extract_number():
         twist()
 
     y = MT[index]
+    print(y)
     #1- on divise y par 2^11
     #2- on effectue un "et binaire" avec le résulat de l'étape 1 et la constante "d"
     #3- y = on effectue un ou esclusif avec le résultat de l'étape 2 et l'ancien y
     y = y ^ ((y >> u) & d)
+    print(y)
 
     #4- on multiplie y par 2^7
     #5- on effectue un "et binaire" avec le résulat de l'étape 4 et la constante "b"
     #6- y = on effectue un ou esclusif avec le résultat de l'étape 5 et l'ancien y
     y = y ^ ((y << s) & b)
+    print(y)
 
     #7- on multiplie y par 2^15
     #8- on effectue un "et binaire" avec le résulat de l'étape 7 et la constante "c"
     #9- y = on effectue un ou esclusif avec le résultat de l'étape 8 et l'ancien y
     y = y ^ ((y << t) & c)
+    print(y)
 
     #10- on divise y par 2
     #11- y = on effectue un ou esclusif avec le résultat de l'étape 10 et l'ancien y
     y = y ^ (y >> 1)
+    print(y)
 
     index += 1
 
@@ -102,26 +122,23 @@ def twist():
         MT[i] = MT[(i + m) % n] ^ xa
     #on revient à 0 une fois qu'on a modifié la totalité des graines
     index = 0
-    print("notre valeur à nous -> ", MT[0])
+   
 
 
 def test_mersenne():
-    random.seed(5)
-    print("valeur de randint de python -> ", random.randint(0, mod))
+    random.seed(9753102468)
+    print("valeur de randint de python -> ", random.randint(0,mod))
+    
+    
+print("---------------------------------------------------------------------------------")
+seed_mt()
 
-seed_mt(5)
+res= extract_number()
+print("notre valeur à nous -> ",res)
 
-res = [-1] * 624
-for i in range(624):
-    res[i] = extract_number()
 test_mersenne()
 
 #ran = randomTest.Random(5)
 #seed_mt(5)
 
 
-tab = [-1] * 624
-random.seed(5)
-for i in range(624):
-    tab[i] = random.getrandbits(32)
-print("valeur du developpeur qui a cracké l'algo -> ", tab[0])

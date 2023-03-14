@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+import random
 ## a C -> python translation of MT19937, original license below ##
 
 ##  A C-program for MT19937: Real number version
@@ -72,7 +72,7 @@ def sgenrand(seed):
   mt = []
 
   mt.append(seed & 0xffffffff)
-  for i in xrange(1, N + 1):
+  for i in range(1, N + 1):
     mt.append((69069 * mt[i-1]) & 0xffffffff)
 
   mti = i
@@ -90,11 +90,11 @@ def genrand():
     if mti == N+1:   # if sgenrand() has not been called,
       sgenrand(4357) # a default initial seed is used
 
-    for kk in xrange((N-M) + 1):
+    for kk in range((N-M) + 1):
       y = (mt[kk]&UPPER_MASK)|(mt[kk+1]&LOWER_MASK)
       mt[kk] = mt[kk+M] ^ (y >> 1) ^ mag01[y & 0x1]
 
-    for kk in xrange(kk, N):
+    for kk in range(kk, N):
       y = (mt[kk]&UPPER_MASK)|(mt[kk+1]&LOWER_MASK)
       mt[kk] = mt[kk+(M-N)] ^ (y >> 1) ^ mag01[y & 0x1]
 
@@ -115,10 +115,12 @@ def genrand():
 
 def main():
   sgenrand(4357) # any nonzero integer can be used as a seed
-  for j in xrange(100):
+  for j in range(100):
       sys.stdout.write('%5f ' % genrand())
       if (j%8) == 7:
           print
   print
 
 main()
+random.seed(4357)
+print("valeur de randint de python -> ", random.randint(0,2))
