@@ -41,7 +41,7 @@ def next_int():
     c= 11
 
     X0 = ( a * X0 + c ) % m
-    return X0 << 16
+    return X0 >> 16
 
 
 def seed_mt():
@@ -63,29 +63,28 @@ def extract_number():
         twist()
 
     y = MT[index]
-    print(y)
+    
     #1- on divise y par 2^11
     #2- on effectue un "et binaire" avec le résulat de l'étape 1 et la constante "d"
     #3- y = on effectue un ou esclusif avec le résultat de l'étape 2 et l'ancien y
     y = y ^ ((y >> u) & d)
-    print(y)
+  
 
     #4- on multiplie y par 2^7
     #5- on effectue un "et binaire" avec le résulat de l'étape 4 et la constante "b"
     #6- y = on effectue un ou esclusif avec le résultat de l'étape 5 et l'ancien y
     y = y ^ ((y << s) & b)
-    print(y)
+   
 
     #7- on multiplie y par 2^15
     #8- on effectue un "et binaire" avec le résulat de l'étape 7 et la constante "c"
     #9- y = on effectue un ou esclusif avec le résultat de l'étape 8 et l'ancien y
     y = y ^ ((y << t) & c)
-    print(y)
+
 
     #10- on divise y par 2
     #11- y = on effectue un ou esclusif avec le résultat de l'étape 10 et l'ancien y
     y = y ^ (y >> 1)
-    print(y)
 
     index += 1
 
@@ -125,7 +124,7 @@ def twist():
    
 
 
-def test_mersenne():
+"""def test_mersenne():
     random.seed(9753102468)
     print("valeur de randint de python -> ", random.randint(0,mod))
     
@@ -139,6 +138,6 @@ print("notre valeur à nous -> ",res)
 test_mersenne()
 
 #ran = randomTest.Random(5)
-#seed_mt(5)
+#seed_mt(5)"""
 
 
