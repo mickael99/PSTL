@@ -5,6 +5,7 @@
 
 import randomTest
 import random
+import numpy as np
     
 w = 32
 n = 624
@@ -122,22 +123,5 @@ def twist():
     #on revient à 0 une fois qu'on a modifié la totalité des graines
     index = 0
    
-
-
-"""def test_mersenne():
-    random.seed(9753102468)
-    print("valeur de randint de python -> ", random.randint(0,mod))
-    
-    
-print("---------------------------------------------------------------------------------")
-seed_mt()
-
-res= extract_number()
-print("notre valeur à nous -> ",res)
-
-test_mersenne()
-
-#ran = randomTest.Random(5)
-#seed_mt(5)"""
 
 
