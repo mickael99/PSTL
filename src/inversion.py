@@ -15,7 +15,8 @@ def add_O(y):
         for i in range(32 - len(y)):
             y = "0" + y
     return y
-    
+
+
 
 def convert_array_to_binary(y):
     res = ""
@@ -174,8 +175,13 @@ res2 = inverse_line_9(res1)
 res3 = inverse_line_8(res2)
 res4 = inversion_ligne_7(res3)
 
-print(res4)
-print(bin(y1)[2:])
+def inversion (y) :
+    res1 = inverse_line_10(y)
+    res2 = inverse_line_9(res1)
+    res3 = inverse_line_8(res2)
+    res4 = inversion_ligne_7(res3)  
+    return(res4)
+
 
 
 
