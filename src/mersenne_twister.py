@@ -44,7 +44,6 @@ def next_int():
     X0 = ( a * X0 + c ) % m
     return X0 >> 16
 
-
 def seed_mt():
     global index
     index = n
@@ -123,5 +122,3 @@ def twist():
     #on revient à 0 une fois qu'on a modifié la totalité des graines
     index = 0
    
-
-
