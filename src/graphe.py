@@ -1,6 +1,7 @@
 import mersenne_twister as mt
 import numpy as np
 import inversion as inv
+import random as rand
 
 
 # dans le graphe complet on a besoin 31125 arrete et 31125/32 = 972.65625
@@ -9,7 +10,36 @@ import inversion as inv
 def extract_bit(n,i) :
     return (n>>(31-i))&1
 
+def generate_graphe_with_python_algo():
+    number = 0
+    rand.seed(mt.X0);
+    #print("random get state -> ", rand.getstate())
+    Nombres = [0]*973
+    matrice = np.zeros((250, 250))
 
+    for i in range(973):
+        Nombres[i] = rand.randint(0, (2**32) - 1)
+        if(i == 0):
+            print("nombre de 0 ",Nombres[i])
+        if(i == 1):
+            print("nombre de 1 ",Nombres[i])
+
+        if(i == 2):
+            print("getstate ", rand.getstate())
+    index = 0
+    for i in range(250) :
+        for j in range(i+1,250):
+            n=extract_bit(Nombres[index//32],index%32)
+            matrice[i][j]=int(n)
+            matrice[j][i]=int(n)
+            index+=1
+            if number == 31 :
+                number=0
+            else :
+                number+=1
+
+    return (Nombres ,matrice )
+    
 def generate_graph() :
     number = 0
     Nombres = [-1]*973
@@ -31,10 +61,6 @@ def generate_graph() :
                 number=0
             else :
                 number+=1
-    
-    
-            
-            
 
     return (Nombres ,matrice )
 
