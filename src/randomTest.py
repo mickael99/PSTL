@@ -9,6 +9,7 @@ from itertools import accumulate as _accumulate, repeat as _repeat
 from bisect import bisect as _bisect
 import os as _os
 import _random
+import pathlib
 
 try:
     # hashlib is pretty heavy to load, try lean internal module first
@@ -72,6 +73,7 @@ class Random(_random.Random):
 
         self.seed(x)
         self.gauss_next = None
+        #print(pathlib.Path("_random").absolute())
 
     def seed(self, a=None, version=2):
         """Initialize internal state from a seed.
@@ -104,6 +106,7 @@ class Random(_random.Random):
             raise TypeError('The only supported seed types are: None,\n'
                             'int, float, str, bytes, and bytearray.')
 
+        #methode seed de la class Random du fichier "_random" qui est pour le moment introuvable
         super().seed(a)
         self.gauss_next = None
 
