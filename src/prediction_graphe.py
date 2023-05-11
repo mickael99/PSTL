@@ -2,13 +2,12 @@ import graphe as g
 import numpy as np
 import inversion as inv
 import mersenne_twister as mers
+import random as rand
 
-(n,m) = g.generate_graph()
+(n,m) = g.generate_graphe_with_python_algo()
+m1 = m[0:201]
 
-m1= m[0:201]
-
-
-## 629 = 20096 bits + 4 bits (les 28 autres bits sont utilisés pour generer la ligne suivante)
+# 629 = 20096 bits + 4 bits (les 28 autres bits sont utilisés pour generer la ligne suivante)
 #31125-20100 = on doit predire 11025 bits sachant qu'on connait deja 28 bits
 # on doit generer 10997 bits pour completer le graphe donc generer 344 nouveaux entiers 
 #10997-10976 = on va utiliser les 21 bits 
@@ -19,9 +18,6 @@ def conversion_base10(s) :
     for i in range (n) :
         res+= int( s[i] ) * (2**(n-1-i))
     return res
-
-
-   
 
 ##############################################################
 
@@ -38,8 +34,11 @@ for i in range(201):
             break
 
 mt_entiers = [-1]*624
+print("avant inversion ", conversion_base10(tab_entiers[0]))
 for i in range(624):
      mt_entiers[i]= conversion_base10(str(inv.inversion(conversion_base10(tab_entiers[i]))))
+print("après inversion ", mt_entiers[0])
+print("n0 -> ", n[0])
 
 #print(tab_entiers[10])
 #print(inv.convert_binary(n[10]))
@@ -121,33 +120,21 @@ def generation_reste_graphe(Nombres):
                 number=0
              else :
                 number+=1
-             
-    
+            
     return matrice
 
-
-
+#Prédiction avec nos propres algorithmes
 mt_entiers2=twist2(mt_entiers)
 entiers_generés = extract_number2(mt_entiers2)
 res=generation_reste_graphe(entiers_generés)
 graphe = np.concatenate((m1[0:100],res))
 print(np.array_equal(graphe,m))
 
+print(g.extract_bit(10,30))
 
-
-
+#Prédiction avec l'algorithme de python 
 
 #print(inv.convert_binary(mers.MT[0]))
-
-
-
-        
-    
-
-
-
-
-
 
 """"
 y=n[5]
