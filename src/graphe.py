@@ -11,7 +11,6 @@ def extract_bit(n,i) :
     return (n>>(31-i))&1
 
 def generate_graphe_with_python_algo():
-    number = 0
     rand.seed(mt.X0);
     #print("random get state -> ", rand.getstate())
     Nombres = [0]*973
@@ -27,15 +26,11 @@ def generate_graphe_with_python_algo():
             matrice[i][j]=int(n)
             matrice[j][i]=int(n)
             index+=1
-            if number == 31 :
-                number=0
-            else :
-                number+=1
+         
 
     return (Nombres ,matrice )
     
 def generate_graph() :
-    number = 0
     Nombres = [-1]*973
     mt.seed_mt()
     for i in range (973):
@@ -51,11 +46,7 @@ def generate_graph() :
             matrice[i][j]=int(n)
             matrice[j][i]=int(n)
             index+=1
-            if number == 31 :
-                number=0
-            else :
-                number+=1
-
+          
     return (Nombres ,matrice )
 
 

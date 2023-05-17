@@ -4,7 +4,7 @@ import inversion as inv
 import mersenne_twister as mers
 import random as rand
 
-(n,m) = g.generate_graphe_with_python_algo()
+(n,m) = g.generate_graph()
 m1 = m[0:201]
 
 # 629 = 20096 bits + 4 bits (les 28 autres bits sont utilisés pour generer la ligne suivante)
@@ -83,7 +83,6 @@ def extract_number2(MT):
 
 def generation_reste_graphe(Nombres):
     matrice=np.zeros((150,250))
-    number = 0
     index = 0
     for i in range(119):
         matrice[0][i]= m1[100][i]
@@ -104,10 +103,7 @@ def generation_reste_graphe(Nombres):
             matrice[i][j]=int(k)
             matrice[j-100][n]=int(k)
             index+=1
-            if number == 31 :
-                number=0
-            else :
-                number+=1
+            
     
     for i in range(1,250) :
          n= 100+i
@@ -116,10 +112,7 @@ def generation_reste_graphe(Nombres):
              matrice[i][j]=int(k)
              matrice[j-100][n]=int(k)
              index+=1
-             if number == 31 :
-                number=0
-             else :
-                number+=1
+             
             
     return matrice
 
