@@ -71,7 +71,7 @@ def extract_number2(MT):
         y = y ^ ((y << mers.s) & mers.b)
    
         y = y ^ ((y << mers.t) & mers.c)
-        y = y ^ (y >> 1)
+        y = y ^ (y >> mers.l)
 
         y= y % mers.mod
 

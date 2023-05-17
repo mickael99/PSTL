@@ -1,8 +1,13 @@
-t = 15
-c = 4022730752
-s = 7
-b = 2636928640
 
+import mersenne_twister as mt
+
+
+def conversion_base10(s) :
+    res =0 
+    n = len(s)
+    for i in range (n) :
+        res+= int( s[i] ) * (2**(n-1-i))
+    return res
 def convert_binary(y):
     return '{:032b}'.format(y)   
 
@@ -17,32 +22,13 @@ def add_O(y):
     return y
 
 
-
 def convert_array_to_binary(y):
     res = ""
     for i in range(32):
         res += str(y[i])
     return res
 
-"""""
-def inversion_ligne_7(Y_bar):
-    Y_bar = str(Y_bar)
-    Y_bar = add_O(Y_bar)
-    res = [-1]*32
-    size=32 
-    # les bits de 20 --> 31
-    for i in range(20,32):
-        res[i]=int(Y_bar[size-(i+1)])
-    # les bits de 8 --> 20
-    for i in range (8,20):
-        res[i]=int(Y_bar[size-(i+1)]) ^ int(Y_bar[(size-(i+1))-12])
-    for i in range (8):
-        res[i]=int(Y_bar[size-(i+1)]) ^ res[i+12]
-    
-    res.reverse()
-    res_str = convert_array_to_binary(res)
-    return int(res_str,10)
- """
+
 
 
 def inversion_ligne_7(Y_bar):
@@ -130,36 +116,42 @@ def inverse_line_9(y_bar_bin):
     res_str = convert_array_to_binary(res)
     return int(res_str, 10)
 
-#y = y ^ (y >> 1)
+#y = y ^ (y >> l)
 def inverse_line_10(y_bar):
-    #on retire le "0b"
     y_bar_bin = convert_binary(y_bar)
-
+    y_bar_bin = str(y_bar_bin)
+    res = [-1] * 32
+    y_bar_bin=y_bar_bin[::-1]  
+     # les bits de 14 --> 31
+    for i in range(14,32):
+        res[i]=int(y_bar_bin[i])
+    # les bits de 0 --> 13
+    for i in range (14):
+        res[i]=int(y_bar_bin[i]) ^ int(res[i+18])
+    res.reverse()
+    res_str = convert_array_to_binary(res)
+    return int(res_str, 10)
+    
     #pour le 32e bit (le bit de poids fort)
-    res = [-1] * 31
+    """
     res.append(int(y_bar_bin[0]))
     res.reverse()
     for i in range(1, 32):
-        res[i] = int(y_bar_bin[i]) ^ res[i - 1]
+        res[i] = int(y_bar_bin[i]) ^ res[i - mt.l]"""
 
-
-    res_str = convert_array_to_binary(res)
-    return int(res_str, 10)
 
 
 def test_line_7(y):
     return  y ^ (y >> 11)
 
 def test_line_8(y):
-    global s, b
-    return y ^ ((y << s) & b)
+    return y ^ ((y << mt.s) & mt.b)
 
 def test_line_9(y):
-    global c, t
-    return y ^ ((y << t) & c)
+    return y ^ ((y << mt.t) & mt.c)
 
 def test_line_10(y):
-    return  y ^ (y >> 1)
+    return  y ^ (y >> mt.l)
 
 
 
@@ -174,6 +166,9 @@ res1 = inverse_line_10(y5)
 res2 = inverse_line_9(res1)
 res3 = inverse_line_8(res2)
 res4 = inversion_ligne_7(res3)
+
+
+
 
 def inversion (y) :
     res1 = inverse_line_10(y)

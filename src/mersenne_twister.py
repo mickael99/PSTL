@@ -19,6 +19,7 @@ a = 2567483615
 d = 4294967295
 b = 2636928640
 c = 4022730752
+l= 18
 mod = pow(2, w)
 
 MT = [0] * n
@@ -84,7 +85,7 @@ def extract_number():
 
     #10- on divise y par 2
     #11- y = on effectue un ou esclusif avec le résultat de l'étape 10 et l'ancien y
-    y = y ^ (y >> 1)
+    y = y ^ (y >> l)
 
     index += 1
 

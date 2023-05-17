@@ -18,15 +18,9 @@ def generate_graphe_with_python_algo():
     matrice = np.zeros((250, 250))
 
     for i in range(973):
-        Nombres[i] = rand.randint(0, (2**32) - 1)
-        if(i == 0):
-            print("nombre de 0 ",Nombres[i])
-        if(i == 1):
-            print("nombre de 1 ",Nombres[i])
-
-        if(i == 2):
-            print("getstate ", rand.getstate())
-    index = 0
+        Nombres[i] = rand.getrandbits(32)
+    
+        index = 0
     for i in range(250) :
         for j in range(i+1,250):
             n=extract_bit(Nombres[index//32],index%32)
