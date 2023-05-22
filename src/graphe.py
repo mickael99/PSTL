@@ -32,9 +32,11 @@ def generate_graphe_with_python_algo():
     
 def generate_graph() :
     Nombres = [-1]*973
-    mt.seed_mt()
+    mat= [-1]*624
+    mers = mt.generateur(mat)
+    mers.seed_mt()
     for i in range (973):
-        Nombres[i]= mt.extract_number()
+        Nombres[i]= mers.extract_number()
 
     matrice=np.zeros((250,250))
 

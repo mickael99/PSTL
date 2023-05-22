@@ -1,17 +1,40 @@
 
 import mersenne_twister as mt
 
+"""
+    Convertit un nombre binaire en base 10
 
+    @param s Le nombre en binaire
+
+    @return Le nombre en base 10  
+"""
 def conversion_base10(s) :
-    s= str(s)
-    res =0 
+    s = str(s)
+    res = 0 
     n = len(s)
     for i in range (n) :
         res+= int( s[i] ) * (2**(n-1-i))
     return res
 
+"""
+    Convertit un entier en un nombre en base 2 codé sur 32 bits
+
+    @param y L'entier à convertir
+
+    @return Le nombre en base 2 codé sur 32 bits
+"""
 def convert_binary(y):
     return '{:032b}'.format(y)   
+
+"""
+    Ajoute des 0 à un nombre binaire afin que ce dernier s
+it
+    codé sur 32 bits
+
+    @param y le nombre en binaire
+
+    @return Le nombre binaire codé sur 32 bits avec d"s 0 ajoutés
+            si besoin"""
 
 def add_O(y):
     if len(y) > 32:
@@ -24,11 +47,31 @@ def add_O(y):
     return y
 
 
+"""
+    Convertit un tableau contenant des "0" ou des "1" pour chaque élément 
+    de ce dernier en une représentation binaire sous la forme d'une chaine
+    de caractère
+
+    @param Le tableau contenant des "0" et des "1"
+
+    @return La chaine de caractère contenant des "0" et des "1"
+"""
 def convert_array_to_binary(y):
     res = ""
     for i in range(32):
         res += str(y[i])
     return res
+
+
+"""
+    Inverse 𝑦¯ ← y ⊕ (y » u) & d
+    Lire le rapport pour plus de details
+
+    @param Y_bar Le nombre à inverser
+
+    @return L'invertion de Y_bar 
+
+"""
 
 
 def inversion_ligne_7(Y_bar):
@@ -50,7 +93,14 @@ def inversion_ligne_7(Y_bar):
     res_str = convert_array_to_binary(res)
     return int(res_str,10)
 
-#b = 10011101001011000101011010000000
+"""
+    Inverse 𝑦¯ ← y ⊕ (y « s) & b
+    Lire le rapport pour plus de details
+
+    @param Y_bar Le nombre à inverser
+
+    @return L'invertion de Y_bar
+"""
 def inverse_line_8(y_bar_bin):
     y_bar_bin = str(y_bar_bin)
     y_bar_bin = add_O(y_bar_bin)
@@ -91,7 +141,14 @@ def inverse_line_8(y_bar_bin):
     return int(res_str,10)
 
     
+"""
+    Inverse : 𝑦¯ ← y ⊕ ((y « t) & c) 
+    Lire le rapport pour plus de details
 
+    @param Y_bar Le nombre à inverser
+
+    @return L'invertion de Y_bar
+"""
 def inverse_line_9(y_bar_bin):
     #c = 11101111110001100000000000000000
     y_bar_bin = str(y_bar_bin)
@@ -116,7 +173,14 @@ def inverse_line_9(y_bar_bin):
     res_str = convert_array_to_binary(res)
     return int(res_str, 10)
 
-#y = y ^ (y >> l)
+"""
+    Inverse : 𝑦¯ ←y ⊕ (y » l)
+    Lire le rapport pour plus de details
+
+    @param Y_bar Le nombre à inverser
+
+    @return L'invertion de Y_bar
+"""
 def inverse_line_10(y_bar):
     y_bar_bin = convert_binary(y_bar)
     y_bar_bin = str(y_bar_bin)
@@ -133,7 +197,15 @@ def inverse_line_10(y_bar):
     return int(res_str, 10)
     
 
+"""
+    Inverse toutes les lignes
+    Lire le rapport pour plus de details
 
+    @param y Le nombre à inverser
+
+    @return L'invertion de Y
+
+"""
 def inversion (y) :
     res1 = inverse_line_10(y)
     res2 = inverse_line_9(res1)
