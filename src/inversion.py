@@ -3,11 +3,13 @@ import mersenne_twister as mt
 
 
 def conversion_base10(s) :
+    s= str(s)
     res =0 
     n = len(s)
     for i in range (n) :
         res+= int( s[i] ) * (2**(n-1-i))
     return res
+
 def convert_binary(y):
     return '{:032b}'.format(y)   
 
@@ -27,8 +29,6 @@ def convert_array_to_binary(y):
     for i in range(32):
         res += str(y[i])
     return res
-
-
 
 
 def inversion_ligne_7(Y_bar):
@@ -132,42 +132,6 @@ def inverse_line_10(y_bar):
     res_str = convert_array_to_binary(res)
     return int(res_str, 10)
     
-    #pour le 32e bit (le bit de poids fort)
-    """
-    res.append(int(y_bar_bin[0]))
-    res.reverse()
-    for i in range(1, 32):
-        res[i] = int(y_bar_bin[i]) ^ res[i - mt.l]"""
-
-
-
-def test_line_7(y):
-    return  y ^ (y >> 11)
-
-def test_line_8(y):
-    return y ^ ((y << mt.s) & mt.b)
-
-def test_line_9(y):
-    return y ^ ((y << mt.t) & mt.c)
-
-def test_line_10(y):
-    return  y ^ (y >> mt.l)
-
-
-
-y1 = 3785821843
-
-y2= test_line_7(y1)
-y3 = test_line_8(y2)
-y4 = test_line_9(y3)
-y5 = test_line_10(y4)
-
-res1 = inverse_line_10(y5)
-res2 = inverse_line_9(res1)
-res3 = inverse_line_8(res2)
-res4 = inversion_ligne_7(res3)
-
-
 
 
 def inversion (y) :
@@ -175,22 +139,8 @@ def inversion (y) :
     res2 = inverse_line_9(res1)
     res3 = inverse_line_8(res2)
     res4 = inversion_ligne_7(res3)  
-    return(res4)
+    return(conversion_base10(res4))
 
 
 
 
-"""
-21--->31 (ok)
-
-b20-> a20 xor a31
-.
-.
-.
-b10 -> a10 xor a21 
-
-b9 -> a9 xor a20     a20
-
-
-
-"""

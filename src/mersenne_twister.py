@@ -32,6 +32,8 @@ upper_mask = (~lower_mask) % mod
 
 X0 = 9753102468
 
+
+
 def next_int():
     ### générateur rand48
     ### renvoie un entier 32 bits, en partant de X0
