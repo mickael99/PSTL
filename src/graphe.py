@@ -6,7 +6,7 @@ import random as rand
 
 # dans le graphe complet on a besoin 31125 arrete et 31125/32 = 972.65625
 # il faut generer 2 matrices de mersenne 973 entier = 624 entiers + 349 entiers 
-
+#test
 def extract_bit(n,i) :
     return (n>>(31-i))&1
 
